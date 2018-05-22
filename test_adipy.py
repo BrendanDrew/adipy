@@ -4,6 +4,7 @@
 #  Imports
 # ----------------------------------------------------------------------
 
+from __future__ import print_func
 import numpy as np
 from scipy.optimize import root
 import matplotlib.pyplot as plt
@@ -70,7 +71,7 @@ def chebyshev(N, integration=False):
 
     # error checking:
     if N <= 0:
-        print "N must be > 0"
+        print("N must be > 0")
         return []   
 
     # initialize

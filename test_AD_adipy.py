@@ -4,6 +4,7 @@
 #  Imports
 # ----------------------------------------------------------------------
 
+from __future__ import print_function
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -31,8 +32,8 @@ def main():
     # compute objective function
     alpha = np.pi
     f = objective(alpha, N, tol, x, D2, I, plot=False)
-    print f
-    print 'total simulation time:', time()-start, 'seconds (without plotting)'
+    print(f)
+    print('total simulation time: {} seconds (without plotting)'.format(time()-start))
     
     return
 
@@ -94,7 +95,7 @@ def chebyshev(N, integration=True):
 
     # error checking:
     if N <= 0:
-        print "N must be > 0"
+        print("N must be > 0")
         return []   
 
     # initialize
@@ -138,7 +139,7 @@ def line_search(x_old, f_old, g, p, function, data, max_step, tol_x=1e-8,
 
     slope = np.dot(g,p) 
     if (slope >= 0.0):
-        print "Newton solver: roundoff problem in line search, exiting..."
+        print("Newton solver: roundoff problem in line search, exiting...")
         return x_old, None, f_old, check
 
     x_scale = np.max(np.append(np.abs(x_old), 1.0))
@@ -201,13 +202,13 @@ def newton(x, function, data, tol_f=1.0e-8, tol_x=1.0e-10, max_iters=1000,
 
     fv = function(x, data)
     if len(fv) != N:
-        print "Newton solver: vector returned by function call is different length than x, exiting" 
+        print("Newton solver: vector returned by function call is different length than x, exiting")
         check = True
         return x0, None, check
 
     # Test for initial guess being a root  
     if (np.max(np.abs(fv)) < tol_f):
-        print "Newton solver: Initial guess is a root, exiting..." 
+        print("Newton solver: Initial guess is a root, exiting...")
         return x0, fv, check
 
     # initialize minimization function
@@ -246,7 +247,7 @@ def newton(x, function, data, tol_f=1.0e-8, tol_x=1.0e-10, max_iters=1000,
 
         # test for convergence on function values 
         if (np.max(np.abs(fv)) < tol_f):
-            print "Newton solver: Converged function values, exiting..."
+            print("Newton solver: Converged function values, exiting...")
             return x, fv, check
 
         # check for spurious convergence
@@ -258,11 +259,11 @@ def newton(x, function, data, tol_f=1.0e-8, tol_x=1.0e-10, max_iters=1000,
 
         # Test for convergence on dx
         if np.max(np.abs(x - x_old))/x_scale < tol_x:
-            print "Newton solver: Convergence change in variable values, exiting..."
+            print("Newton solver: Convergence change in variable values, exiting...")
             return x, fv, check 
 
     # end iteration loop
-    print "Newton solver: maximum iterations exceeded, exiting..." 
+    print("Newton solver: maximum iterations exceeded, exiting...")
 
     return x, fv, check
 
